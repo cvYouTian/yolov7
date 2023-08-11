@@ -9,7 +9,8 @@ import shutil
 import time
 from itertools import repeat
 from multiprocessing.pool import ThreadPool
-from pathlib import Path
+from pathlib import Path, PurePath
+from typing import Union
 from threading import Thread
 
 import cv2
@@ -1318,3 +1319,9 @@ def load_segmentations(self, index):
     #print(key)
     # /work/handsomejw66/coco17/
     return self.segs[key]
+
+
+def addv7data(image_path: Union[str, Path], txt_file: Union[str, Path]) -> None:
+    with open(txt_file, 'w') as tf:
+        for jpg_file in Path(image_path).glob("*.jpg"):
+            tf.write(str(jpg_file) +'\n')
